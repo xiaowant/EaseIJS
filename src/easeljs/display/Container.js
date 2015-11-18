@@ -479,12 +479,14 @@ this.createjs = this.createjs||{};
 	 * @method getObjectsUnderPoint
 	 * @param {Number} x The x position in the container to test.
 	 * @param {Number} y The y position in the container to test.
-	 * @param {Number} [mode=0] The mode to use to determine which display objects to include. 0-all, 1-respect mouseEnabled/mouseChildren, 2-only mouse opaque objects.
+	 * @param {Number} [mode=0] The mode to use to determine which display objects to include. 0-all, 1-respect
+	 * mouseEnabled/mouseChildren, 2-only mouse opaque objects.
+	 * @param {Point | Object} [pt] An object to use for internal calculations. If omitted, a new point will be created.
 	 * @return {Array} An Array of DisplayObjects under the specified coordinates.
 	 **/
-	p.getObjectsUnderPoint = function(x, y, mode) {
+	p.getObjectsUnderPoint = function(x, y, mode, pt) {
 		var arr = [];
-		var pt = this.localToGlobal(x, y);
+		pt = this.localToGlobal(x, y, pt);
 		this._getObjectsUnderPoint(pt.x, pt.y, arr, mode>0, mode==1);
 		return arr;
 	};
@@ -496,11 +498,13 @@ this.createjs = this.createjs||{};
 	 * @method getObjectUnderPoint
 	 * @param {Number} x The x position in the container to test.
 	 * @param {Number} y The y position in the container to test.
-	 * @param {Number} mode The mode to use to determine which display objects to include.  0-all, 1-respect mouseEnabled/mouseChildren, 2-only mouse opaque objects.
+	 * @param {Number} mode The mode to use to determine which display objects to include.  0-all, 1-respect
+	 * mouseEnabled/mouseChildren, 2-only mouse opaque objects.
+	 * @param {Point | Object} [pt] An object to use for internal calculations. If omitted, a new point will be created.
 	 * @return {DisplayObject} The top-most display object under the specified coordinates.
 	 **/
-	p.getObjectUnderPoint = function(x, y, mode) {
-		var pt = this.localToGlobal(x, y);
+	p.getObjectUnderPoint = function(x, y, mode, pt) {
+		pt = this.localToGlobal(x, y, pt);
 		return this._getObjectsUnderPoint(pt.x, pt.y, null, mode>0, mode==1);
 	};
 	
